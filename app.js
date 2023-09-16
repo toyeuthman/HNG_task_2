@@ -22,7 +22,7 @@ app.post("/api", async (req, res) => {
   try {
     const person = new Person(req.body);
     await person.save();
-    res.status(201).json({ message: "Person created successfully",person });
+    res.status(201).json({ name: person.name, id: person._id });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -39,13 +39,13 @@ app.get("/api", async (req, res) => {
 
 app.get("/api/:name", async (req, res) => {
   try {
-    const name = req.params.name; // Change 'id' to 'name'
-    const person = await Person.findOne({ name }); // Use 'findOne' with 'name' field
+    const {id} = req.params; // Change 'id' to 'name'
+    const person = await Person.findOne({_id:id}); // Use 'findOne' with 'name' field
     if (!person) {
       res.status(404).json({ error: "Person not found" });
       return;
     }
-    res.status(200).json(person);
+    res.status(200).json({name:person.name,id:person._id});
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -53,17 +53,18 @@ app.get("/api/:name", async (req, res) => {
 
 app.put("/api/:name", async (req, res) => {
   try {
-    const name = req.params.name; // Change 'id' to 'name'
-    const updatedPerson = req.body;
-    const person = await Person.findOneAndUpdate({ name }, updatedPerson, {
-      new: true,
-    }); // Use 'findOneAndUpdate' with 'name' field
+    const {id} = req.params; // Change 'id' to 'name'
+    
+    const person = await Person.findOneAndUpdate({ _id:id },req.body, {
+      new: true, runvalidators: true
+    });
+      
 
     if (!person) {
       res.status(404).json({ error: "Person not found" });
       return;
     }
-    res.status(200).json({ message: 'Person updated' });
+    res.status(200).json({ name: person.name, id: person._id });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -71,16 +72,16 @@ app.put("/api/:name", async (req, res) => {
 
 app.delete("/api/:name", async (req, res) => {
   try {
-    const name = req.params.name; // Change 'id' to 'name'
-    const deletedPerson = await Person.deleteOne({ name }); // Use 'deleteOne' with 'name' field
+    const {id} = req.params; // Change 'id' to 'name'
+    const person = await Person.findOneAndDelete({ _id:id }); // Use 'deleteOne' with 'name' field
 
-    if (!deletedPerson.deletedCount) { // Check 'deletedCount' to see if a document was deleted
+    if (!person) { // Check 'deletedCount' to see if a document was deleted
       res.status(404).json({ error: "Person not found" });
       return;
     }
     res.status(200).json({ message: "Person deleted" });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: err});
   }
 });
 

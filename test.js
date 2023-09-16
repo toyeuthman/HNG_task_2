@@ -26,7 +26,11 @@ async function testCRUDOperations() {
     const deleteResponse = await axios.delete(`${baseUrl}/${personName}`);
     console.log('Delete Response:', deleteResponse.data);
   } catch (error) {
-    console.error('Error:', error.response ? error.response.data : error.message);
+    if (error.response) {
+      console.error('Error:', error.response.data);
+    } else {
+      console.error('Error:', error.message);
+    }
   }
 }
 
