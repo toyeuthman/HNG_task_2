@@ -1,31 +1,29 @@
 const axios = require('axios');
 
-const baseUrl = 'http://localhost:3000'; // Update with your server URL
+const baseUrl = 'http://localhost:3000/api'; // Update with your server URL
 
 async function testCRUDOperations() {
   try {
     // Create a new person
     const createResponse = await axios.post(`${baseUrl}/people`, {
-            "name": "Jane Smith",
-            "username": "dancingjane",
-            "age": 30
-    });
-
-
+        "name": "Johndoe",
+        "username": "jonhndoes",
+        "age": 30
+      });
     console.log('Create Response:', createResponse.data);
 
-    // Fetch details of a person by ID
-    const personId = createResponse.data.person._id;
-    const readResponse = await axios.get(`${baseUrl}/people/${personId}`);
+    // Fetch details of a person by name
+    const personName = createResponse.data.person.name; // Get the name of the person
+    const readResponse = await axios.get(`${baseUrl}/people/${personName}`);
     console.log('Read Response:', readResponse.data);
 
     // Modify the details of an existing person
-    const updatedPerson = { name: 'Updated Name', age: 36 }; // Modify fields as needed
-    const updateResponse = await axios.put(`${baseUrl}/people/${personId}`, updatedPerson);
+    const updatedPerson = { username: 'updatedusername', age: 36 }; // Modify fields as needed
+    const updateResponse = await axios.put(`${baseUrl}/people/${personName}`, updatedPerson);
     console.log('Update Response:', updateResponse.data);
 
-    // Remove a person by ID
-    const deleteResponse = await axios.delete(`${baseUrl}/people/${personId}`);
+    // Remove a person by name
+    const deleteResponse = await axios.delete(`${baseUrl}/people/${personName}`);
     console.log('Delete Response:', deleteResponse.data);
   } catch (error) {
     console.error('Error:', error.response ? error.response.data : error.message);

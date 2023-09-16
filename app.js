@@ -18,7 +18,7 @@ mongoose
 app.use(express.json());
  
 // CRUD routes
-app.post("/people", async (req, res) => {
+app.post("/api/people", async (req, res) => {
   try {
     const person = new Person(req.body);
     await person.save();
@@ -28,7 +28,7 @@ app.post("/people", async (req, res) => {
   }
 });
 
-app.get("/people", async (req, res) => {
+app.get("/api/people", async (req, res) => {
   try {
     const people = await Person.find();
     res.status(200).json(people);
@@ -37,10 +37,10 @@ app.get("/people", async (req, res) => {
   }
 });
 
-app.get("/people/:id", async (req, res) => {
+app.get("/api/people/:name", async (req, res) => {
   try {
-    const id = req.params.id;
-    const person = await Person.findById(id)
+    const name = req.params.name; // Change 'id' to 'name'
+    const person = await Person.findOne({ name }); // Use 'findOne' with 'name' field
     if (!person) {
       res.status(404).json({ error: "Person not found" });
       return;
@@ -51,30 +51,30 @@ app.get("/people/:id", async (req, res) => {
   }
 });
 
-app.put("/people/:id", async (req, res) => {
+app.put("/api/people/:name", async (req, res) => {
   try {
-    const id = req.params.id;
+    const name = req.params.name; // Change 'id' to 'name'
     const updatedPerson = req.body;
-    const person = await Person.findByIdAndUpdate(id, updatedPerson, {
+    const person = await Person.findOneAndUpdate({ name }, updatedPerson, {
       new: true,
-    })
-    
+    }); // Use 'findOneAndUpdate' with 'name' field
+
     if (!person) {
       res.status(404).json({ error: "Person not found" });
       return;
     }
-    res.status(200).json({message: 'Person updated'});
+    res.status(200).json({ message: 'Person updated' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-app.delete("/people/:id", async (req, res) => {
+app.delete("/api/people/:name", async (req, res) => {
   try {
-    const id = req.params.id;
-    const deletedPerson = await Person.deleteOne({ _id: id })
+    const name = req.params.name; // Change 'id' to 'name'
+    const deletedPerson = await Person.deleteOne({ name }); // Use 'deleteOne' with 'name' field
 
-    if (!deletedPerson) {
+    if (!deletedPerson.deletedCount) { // Check 'deletedCount' to see if a document was deleted
       res.status(404).json({ error: "Person not found" });
       return;
     }
