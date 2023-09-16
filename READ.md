@@ -57,7 +57,7 @@ Your API should now be up and running at `http://localhost:3000`.
 
 ### Create a Person
 
-**Endpoint:** `POST /people`
+**Endpoint:** `POST /api`
 
 **Request Body:**
 
@@ -72,19 +72,19 @@ Your API should now be up and running at `http://localhost:3000`.
 
 ### Get All People
 
-**Endpoint:** `GET /people`
+**Endpoint:** `GET /api`
 
 **Description:** Retrieve a list of all people records.
 
-### Get Person by ID
+### Get Person by Name
 
-**Endpoint:** `GET /people/:id`
+**Endpoint:** `GET /api/:name`
 
-**Description:** Retrieve a person record by their unique ID.
+**Description:** Retrieve a person record by their name.
 
-### Update Person by ID
+### Update Person by Name
 
-**Endpoint:** `PUT /people/:id`
+**Endpoint:** `PUT /api/:name`
 
 **Request Body:**
 
@@ -95,13 +95,13 @@ Your API should now be up and running at `http://localhost:3000`.
 }
 ```
 
-**Description:** Update a person's name and age by their unique ID.
+**Description:** Update a person's name and age by their name.
 
-### Delete Person by ID
+### Delete Person by Name
 
-**Endpoint:** `DELETE /people/:id`
+**Endpoint:** `DELETE /api/:name`
 
-**Description:** Delete a person record by their unique ID.
+**Description:** Delete a person record by their name.
 
 ## Examples
 
