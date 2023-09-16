@@ -6,27 +6,33 @@ async function testCRUDOperations() {
   try {
     // Create a new person
     const createResponse = await axios.post(`${baseUrl}`, {
-        "name": "Johndoe",
-        "username": "jonhndoes",
-        "age": 30
-      });
+      name: 'Johndoe',
+      username: 'johndoes',
+      age: 30,
+    });
     console.log('Create Response:', createResponse.data);
 
-    // Fetch details of a person by name
-    const personName = createResponse.data.person.name; // Get the name of the person
-    const readResponse = await axios.get(`${baseUrl}/${personName}`);
+    // Extract the person ID from the create response
+    const personId = createResponse.data.id;
+
+    // Fetch details of a person by ID
+    const readResponse = await axios.get(`${baseUrl}/${personId}`);
     console.log('Read Response:', readResponse.data);
 
     // Modify the details of an existing person
     const updatedPerson = { username: 'updatedusername', age: 36 }; // Modify fields as needed
-    const updateResponse = await axios.put(`${baseUrl}/${personName}`, updatedPerson);
+    const updateResponse = await axios.put(`${baseUrl}/${personId}`, updatedPerson);
     console.log('Update Response:', updateResponse.data);
 
-    // Remove a person by name
-    const deleteResponse = await axios.delete(`${baseUrl}/${personName}`);
+    // Remove a person by ID
+    const deleteResponse = await axios.delete(`${baseUrl}/${personId}`);
     console.log('Delete Response:', deleteResponse.data);
   } catch (error) {
-    console.error('Error:', error.response ? error.response.data : error.message);
+    if (error.response) {
+      console.error('Error:', error.response.data);
+    } else {
+      console.error('Error:', error.message);
+    }
   }
 }
 
