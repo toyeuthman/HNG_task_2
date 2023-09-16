@@ -37,7 +37,7 @@ To get started with the API, make sure you have the following prerequisites:
 #### Example Request
 
 ```
-POST /people
+POST /api
 
 {
   "name": "John Doe",
@@ -55,7 +55,7 @@ Example Response (201 Created)
 }
 Get All People
 
-URL: /people
+URL: /api
 Method: GET
 Example Response (200 OK)
 
@@ -72,9 +72,9 @@ Example Response (200 OK)
   }
 ]
 
-Get Person by ID
+Get Person by Name
 
-URL: /people/:id
+URL: /api/:name
 Method: GET
 Example Response (200 OK)
 
@@ -86,14 +86,14 @@ Example Response (200 OK)
 
 Update a Person
 
-URL: /people/:id
+URL: /api/:name
 Method: PUT
 Request Body:
 name (string, required): The updated name of the person.
 age (number, required): The updated age of the person.
 Example Request
 
-PUT /people/12345
+PUT /api/:name
 {
   "name": "Updated Name",
   "age": 30
@@ -106,7 +106,7 @@ Example Response (200 OK)
 
 Delete a Person
 
-URL: /people/:id
+URL: /api/:name
 Method: DELETE
 Example Response (200 OK)
 
