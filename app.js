@@ -28,16 +28,16 @@ app.post("/api", async (req, res) => {
   }
 });
 
-// app.get("/api", async (req, res) => {
-//   try {
-//     const people = await Person.find();
-//     res.status(200).json(people);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
+app.get("/api", async (req, res) => {
+  try {
+    const people = await Person.find();
+    res.status(200).json(people);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
-app.get("/api/:id", async (req, res) => {
+app.get("/api/:name", async (req, res) => {
   try {
     const {id} = req.params; // Change 'id' to 'name'
     const person = await Person.findOne({_id:id}); // Use 'findOne' with 'name' field
@@ -51,7 +51,7 @@ app.get("/api/:id", async (req, res) => {
   }
 });
 
-app.put("/api/:id", async (req, res) => {
+app.put("/api/:name", async (req, res) => {
   try {
     const {id} = req.params; // Change 'id' to 'name'
     
@@ -70,7 +70,7 @@ app.put("/api/:id", async (req, res) => {
   }
 });
 
-app.delete("/api/:id", async (req, res) => {
+app.delete("/api/:name", async (req, res) => {
   try {
     const {id} = req.params; // Change 'id' to 'name'
     const person = await Person.findOneAndDelete({ _id:id }); // Use 'deleteOne' with 'name' field

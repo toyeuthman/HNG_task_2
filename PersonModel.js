@@ -8,8 +8,23 @@ const personSchema = mongoose.Schema({
         maxlength: 50,
         trim: true,
         lowercase: true,
-    }
-
+    },
+    username:{
+        type: String,
+        // required: true,
+        minlength: 3,
+        maxlength: 50,
+        trim: true,
+        lowercase: true,
+        unique: [true, 'Username is already taken.'],
+        
+    },
+    age: {
+        type: Number,
+        // required: true,
+        min: 18,
+        max: 100,
+    },
     
 });
 
