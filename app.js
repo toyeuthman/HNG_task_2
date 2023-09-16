@@ -18,7 +18,7 @@ mongoose
 app.use(express.json());
  
 // CRUD routes
-app.post("/api/people", async (req, res) => {
+app.post("/api", async (req, res) => {
   try {
     const person = new Person(req.body);
     await person.save();
@@ -28,7 +28,7 @@ app.post("/api/people", async (req, res) => {
   }
 });
 
-app.get("/api/people", async (req, res) => {
+app.get("/api", async (req, res) => {
   try {
     const people = await Person.find();
     res.status(200).json(people);
@@ -37,7 +37,7 @@ app.get("/api/people", async (req, res) => {
   }
 });
 
-app.get("/api/people/:name", async (req, res) => {
+app.get("/api/:name", async (req, res) => {
   try {
     const name = req.params.name; // Change 'id' to 'name'
     const person = await Person.findOne({ name }); // Use 'findOne' with 'name' field
@@ -51,7 +51,7 @@ app.get("/api/people/:name", async (req, res) => {
   }
 });
 
-app.put("/api/people/:name", async (req, res) => {
+app.put("/api/:name", async (req, res) => {
   try {
     const name = req.params.name; // Change 'id' to 'name'
     const updatedPerson = req.body;
@@ -69,7 +69,7 @@ app.put("/api/people/:name", async (req, res) => {
   }
 });
 
-app.delete("/api/people/:name", async (req, res) => {
+app.delete("/api/:name", async (req, res) => {
   try {
     const name = req.params.name; // Change 'id' to 'name'
     const deletedPerson = await Person.deleteOne({ name }); // Use 'deleteOne' with 'name' field
