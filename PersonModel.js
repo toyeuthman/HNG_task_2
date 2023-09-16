@@ -11,7 +11,7 @@ const personSchema = mongoose.Schema({
     },
     username:{
         type: String,
-        required: true,
+        // required: true,
         minlength: 3,
         maxlength: 50,
         trim: true,
@@ -21,7 +21,7 @@ const personSchema = mongoose.Schema({
     },
     age: {
         type: Number,
-        required: true,
+        // required: true,
         min: 18,
         max: 100,
     },
