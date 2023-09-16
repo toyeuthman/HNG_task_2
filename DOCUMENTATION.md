@@ -28,7 +28,7 @@ To get started with the API, make sure you have the following prerequisites:
 
 ### Create a Person
 
-- **URL:** `/people`
+- **URL:** `/api`
 - **Method:** `POST`
 - **Request Body:**
   - `name` (string, required): The name of the person (between 3 and 50 characters).
